@@ -748,7 +748,8 @@ PoolStringArray OS::get_connected_midi_inputs() {
 	}
 
 	PoolStringArray list;
-	ERR_FAIL_V_MSG(list, vformat("MIDI input isn't supported on %s.", OS::get_singleton()->get_name()));
+	ERR_PRINT(vformat("MIDI input isn't supported on %s.", OS::get_singleton()->get_name()));
+	return list;
 }
 
 void OS::open_midi_inputs() {

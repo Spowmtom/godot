@@ -88,12 +88,13 @@ Variant PackedDataContainer::_iter_get_ofs(const Variant &p_iter, uint32_t p_off
 		uint32_t vpos = decode_uint32(rd.ptr() + p_offset + 8 + pos * 4);
 		return _get_at_ofs(vpos, rd.ptr(), err);
 
-	} else if (type == TYPE_DICT) {
+	if (type == TYPE_DICT) {
 		uint32_t vpos = decode_uint32(rd.ptr() + p_offset + 8 + pos * 12 + 4);
 		return _get_at_ofs(vpos, rd.ptr(), err);
-	} else {
-		ERR_FAIL_V(Variant());
 	}
+
+	ERR_PRINT(Variant());
+	return Variant();
 }
 
 Variant PackedDataContainer::_get_at_ofs(uint32_t p_ofs, const uint8_t *p_buf, bool &err) const {

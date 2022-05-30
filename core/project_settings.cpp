@@ -883,11 +883,14 @@ Error ProjectSettings::save_custom(const String &p_path, const CustomMap &p_cust
 
 	if (p_path.ends_with(".godot") || p_path.ends_with("override.cfg")) {
 		return _save_settings_text(p_path, props, p_custom, custom_features);
-	} else if (p_path.ends_with(".binary")) {
-		return _save_settings_binary(p_path, props, p_custom, custom_features);
-	} else {
-		ERR_FAIL_V_MSG(ERR_FILE_UNRECOGNIZED, "Unknown config file format: " + p_path + ".");
 	}
+
+	if (p_path.ends_with(".binary")) {
+		return _save_settings_binary(p_path, props, p_custom, custom_features);
+	}
+
+	ERR_PRINT("Unknown config file format: " + p_path + ".");
+	return ERR_FILE_UNRECOGNIZED;
 }
 
 Variant _GLOBAL_DEF_ALIAS(const String &p_var, const String &p_old_name, const Variant &p_default, bool p_restart_if_changed) {
